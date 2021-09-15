@@ -17,14 +17,14 @@
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
-- name: Track forward chain  
+- name: Track forward chain
   iptables:
     chain: FORWARD
     match: conntrack
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
-- name: Allow incoming wireguard connections    
+- name: Allow incoming wireguard connections
   iptables:
     chain: INPUT
     protocol: udp
@@ -32,8 +32,8 @@
     destination_port: "{{ vpn_port }}"
     ctstate: NEW
     jump: ACCEPT
-   
-- name: Allow recursive DNS tcp    
+
+- name: Allow recursive DNS tcp
   iptables:
     chain: INPUT
     source: "{{ vpn_network }}.0/24"
@@ -42,8 +42,8 @@
     destination_port: 53
     ctstate: NEW
     jump: ACCEPT
-  
-- name: Allow recursive DNS udp  
+
+- name: Allow recursive DNS udp
   iptables:
     chain: INPUT
     source: "{{ vpn_network }}.0/24"
@@ -52,8 +52,8 @@
     destination_port: 53
     ctstate: NEW
     jump: ACCEPT
-    
-- name: Allow forwarding of packets that stay in the tunnel 
+
+- name: Allow forwarding of packets that stay in the tunnel
   iptables:
     chain: FORWARD
     in_interface: wg0
@@ -68,12 +68,13 @@
     chain: POSTROUTING
     source: "{{ vpn_network }}.0/24"
     out_interface: "{{ ansible_default_ipv4.interface }}"
-    jump: MASQUERADE  
+    jump: MASQUERADE
 
-- name: Install iptables-persistent
-  apt: pkg=iptables-persistent state=present update_cache=true
+- name: Save iptables rules
+  shell: /etc/init.d/iptables save
 
-- name: Set up iptables persistence
-  command: netfilter-persistent save
-
-
+- name: Enable and start iptables service
+  service:
+    name: iptables
+    enabled: yes
+    state: started
