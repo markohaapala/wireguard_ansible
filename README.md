@@ -28,7 +28,7 @@ git clone https://github.com/markohaapala/wireguard_ansible_alpine
 cd wireguard_ansible_alpine
 ```
 
-Edit the hosts file in that folder and fill in the IP field with the VPN server IP
+Edit the hosts file in that folder and fill in the IP field with the VPS server public IP
 
 Begin the remote installation process by running
 
