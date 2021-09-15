@@ -1,6 +1,6 @@
 # wireguard_ansible_alpine
 
-This is the ansible automation of the Wireguard VPN set up for an Alpine image. A part of it is related to Linode's services.
+This is the ansible automation of the Wireguard VPN set up for an Alpine image. A part of it is related to Linode's services. This is forked from iamckn/wireguard_ansible and opinionated from Ubuntu to Alpine.
 
 This will create ten VPN client profiles when done.
 
@@ -108,6 +108,6 @@ This project has been structured as an ansible role. You can therefore include i
 
 # DNS
 
-If there is another service listening on port 53, you will have issues with getting DNS resolution working.
+This role also installs unbound on your VPS, so your VPS provider's DNS servers won't see which domains your home lab is calling. If there is another service listening on port 53, you will have issues with getting DNS resolution working.
 It is therefore advisable to either disable or change the port of any service already using port 53.
 
