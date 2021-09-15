@@ -1,2 +1,2 @@
 [all]
-45.79.250.14 ansible_python_interpreter=/usr/bin/python3
+<ip> ansible_python_interpreter=/usr/bin/python3
